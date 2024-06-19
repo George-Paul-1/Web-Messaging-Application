@@ -1,5 +1,3 @@
-# ALL COMMENTS HERE ARE FOR LEARNING PURPOSES AND WILL BE REMOVED IN FUTURE COMMITS.
-
 import socket 
 import threading 
 from constraints import * 
@@ -51,6 +49,7 @@ def start():
 
         client.send('NICK'.encode(FORMAT))
         nickname = client.recv(HEADER).decode(FORMAT)
+        
         nicknames.append(nickname)
         clients.append(client)
 
@@ -64,8 +63,6 @@ def start():
 
 
 start()
-
-
 
 
 
