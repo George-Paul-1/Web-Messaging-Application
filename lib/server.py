@@ -70,8 +70,8 @@ def start():
 
         print(f"[ACTIVE CONNECTIONS] {threading.active_count() - 1}")
 
-
-start()
+if __name__ == '__main__':
+    start()
 
 
 

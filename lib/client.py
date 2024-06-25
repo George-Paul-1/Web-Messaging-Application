@@ -49,7 +49,6 @@ class Client:
             message = f"{input('')}"
             
             self.history.append(message)
-            print(f"HISTORY: {self.history}")
 
             send_length = self.calculate_send_length(message)
 
@@ -68,10 +67,3 @@ class Client:
             print("Disconnected")
         except:
             print("There was an error disconnecting")
-
-
-        
-
-cli = Client()
-cli.get_nickname()
-cli.start_()
