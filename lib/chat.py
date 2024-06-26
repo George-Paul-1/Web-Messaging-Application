@@ -38,8 +38,6 @@ class Chat(wx.Frame):
             self.cli.set_nickname(login_dialog.username)
         login_dialog.Destroy()
 
-
-
     def on_press(self, event):
         value = self.text_ctrl.GetValue()
         if not value:
@@ -51,7 +49,7 @@ class Chat(wx.Frame):
     def update_chat_window(self, message):
         current_text = self.st.GetLabel()
         new_text = f"{current_text}\n{message}"
-        self.st.SetLabel('')
+        self.st.SetLabel(new_text)
     
     
 if __name__=='__main__':
