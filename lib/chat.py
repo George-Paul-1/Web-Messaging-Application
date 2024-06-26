@@ -1,8 +1,20 @@
 import wx
+from client import Client 
+from login_window import *
 
-class MyFrame(wx.Frame):
+
+class Chat(wx.Frame):
+    
     def __init__(self):
         super().__init__(parent=None, title='Chat')
+        
+        self.cli = Client(self.update_chat_window)
+        
+        if not self.cli.nickname:
+            self.show_login_window()
+        
+        self.cli.start_()
+        
         panel = wx.Panel(self)
         my_sizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -20,20 +32,29 @@ class MyFrame(wx.Frame):
         panel.SetSizer(my_sizer)
         self.Show() 
     
+    def show_login_window(self):
+        login_dialog = LoginWindow(self)
+        if login_dialog.ShowModal() == wx.ID_OK:
+            self.cli.set_nickname(login_dialog.username)
+        login_dialog.Destroy()
+
+
+
     def on_press(self, event):
         value = self.text_ctrl.GetValue()
-        format = self.st.GetLabel() + '\n' + value
-        self.st.SetLabel(format)
         if not value:
             print("You didn't enter anything!")
         else:
-            print(f"You typed {value}")
-
-        self.text_ctrl.SetValue('')
+            self.cli.send_msg(value)
+            self.text_ctrl.SetValue('')
     
+    def update_chat_window(self, message):
+        current_text = self.st.GetLabel()
+        new_text = f"{current_text}\n{message}"
+        self.st.SetLabel('')
     
     
 if __name__=='__main__':
     app = wx.App()
-    frame = MyFrame()
+    frame = Chat()
     app.MainLoop()
